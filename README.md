@@ -1,17 +1,62 @@
-# Personal Expense Tracker API Documentation
+# Personal Expense Tracker
 
-## Base URL
-`http://localhost:3000`
+## Overview
+This is a Personal Expense Tracker API built with Express.js and SQLite, allowing users to manage their transactions efficiently.
 
 ---
 
-## Authentication
+## Table of Contents
+- [Setup Instructions](#setup-instructions)
+- [API Documentation](#api-documentation)
+- [Postman Screenshots](#postman-screenshots)
 
-### User Registration
+---
+
+## Setup Instructions
+
+### Prerequisites
+- Node.js (v14 or higher)
+- SQLite (for the database)
+
+### Installation
+1. Clone the repository:
+    ```bash
+    git clone <repository-url>
+    cd personal-expense-tracker
+    ```
+   
+2. Install dependencies:
+    ```bash
+    npm install
+    ```
+
+3. Create the SQLite database:
+    ```bash
+    npx sequelize-cli db:create
+    npx sequelize-cli db:migrate
+    ```
+
+### Running the Application
+1. Start the server:
+    ```bash
+    npm start
+    ```
+
+2. The API will be available at `http://localhost:3000`.
+
+---
+
+## API Documentation
+
+### Base URL
+`http://localhost:3000`
+
+### Authentication
+
+#### User Registration
 - **Endpoint:** `/api/users/register`
 - **Method:** `POST`
-- **Headers:**
-  - `Content-Type: application/json`
+- **Headers:** `Content-Type: application/json`
 - **Request Body:**
     ```json
     {
@@ -29,16 +74,15 @@
         }
         ```
 
-### User Login
+#### User Login
 - **Endpoint:** `/api/users/login`
 - **Method:** `POST`
-- **Headers:**
-  - `Content-Type: application/json`
+- **Headers:** `Content-Type: application/json`
 - **Request Body:**
     ```json
     {
         "username": "user123",
-        "password": "securePassword"
+        "password": "user@123"
     }
     ```
 - **Response:**
@@ -47,66 +91,20 @@
         ```json
         {
             "auth": true,
-            "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzI5NjYyMjQzLCJleHAiOjE3Mjk2NjU4NDN9.wHv9MCR1C-EALU42GQE6Tacj9rtZWxTldeFu4HPXr8M"
+            "token": "your_jwt_token_here"
         }
         ```
 
 ---
 
-## Categories
+### Transactions
 
-### Add Category
-- **Endpoint:** `/api/categories`
-- **Method:** `POST`
-- **Headers:**
-  - `Content-Type: application/json`
-  - `Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzI5NjYyMjQzLCJleHAiOjE3Mjk2NjU4NDN9.wHv9MCR1C-EALU42GQE6Tacj9rtZWxTldeFu4HPXr8M`
-- **Request Body:**
-    ```json
-    {
-        "name": "Food",
-        "type": "expense"
-    }
-    ```
-- **Response:**
-    - **Status Code:** 201 Created
-    - **Body:**
-        ```json
-        {
-            "id": 1,
-            "name": "Food",
-            "type": "expense"
-        }
-        ```
-
-### Get All Categories
-- **Endpoint:** `/api/categories`
-- **Method:** `GET`
-- **Headers:**
-  - `Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzI5NjYyMjQzLCJleHAiOjE3Mjk2NjU4NDN9.wHv9MCR1C-EALU42GQE6Tacj9rtZWxTldeFu4HPXr8M`
-- **Response:**
-    - **Status Code:** 200 OK
-    - **Body:**
-        ```json
-        [
-            {
-                "id": 1,
-                "name": "Food",
-                "type": "expense"
-            }
-        ]
-        ```
-
----
-
-## Transactions
-
-### Create Transaction
+#### Create Transaction
 - **Endpoint:** `/api/transactions`
 - **Method:** `POST`
-- **Headers:**
+- **Headers:** 
   - `Content-Type: application/json`
-  - `Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzI5NjYyMjQzLCJleHAiOjE3Mjk2NjU4NDN9.wHv9MCR1C-EALU42GQE6Tacj9rtZWxTldeFu4HPXr8M`
+  - `Authorization: Bearer your_jwt_token_here`
 - **Request Body:**
     ```json
     {
@@ -131,11 +129,10 @@
         }
         ```
 
-### Get All Transactions
+#### Get All Transactions
 - **Endpoint:** `/api/transactions`
 - **Method:** `GET`
-- **Headers:**
-  - `Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzI5NjYyMjQzLCJleHAiOjE3Mjk2NjU4NDN9.wHv9MCR1C-EALU42GQE6Tacj9rtZWxTldeFu4HPXr8M`
+- **Headers:** `Authorization: Bearer your_jwt_token_here`
 - **Response:**
     - **Status Code:** 200 OK
     - **Body:**
@@ -152,11 +149,10 @@
         ]
         ```
 
-### Get Transaction by ID
+#### Get Transaction by ID
 - **Endpoint:** `/api/transactions/:id`
 - **Method:** `GET`
-- **Headers:**
-  - `Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzI5NjYyMjQzLCJleHAiOjE3Mjk2NjU4NDN9.wHv9MCR1C-EALU42GQE6Tacj9rtZWxTldeFu4HPXr8M`
+- **Headers:** `Authorization: Bearer your_jwt_token_here`
 - **Response (Success):**
     - **Status Code:** 200 OK
     - **Body:**
@@ -170,21 +166,13 @@
             "description": "Dinner"
         }
         ```
-- **Response (Not Found):**
-    - **Status Code:** 404 Not Found
-    - **Body:**
-        ```json
-        {
-            "error": "Transaction not found"
-        }
-        ```
 
-### Update Transaction by ID
+#### Update Transaction by ID
 - **Endpoint:** `/api/transactions/:id`
 - **Method:** `PUT`
 - **Headers:**
   - `Content-Type: application/json`
-  - `Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzI5NjYyMjQzLCJleHAiOjE3Mjk2NjU4NDN9.wHv9MCR1C-EALU42GQE6Tacj9rtZWxTldeFu4HPXr8M`
+  - `Authorization: Bearer your_jwt_token_here`
 - **Request Body:**
     ```json
     {
@@ -204,11 +192,10 @@
         }
         ```
 
-### Delete Transaction by ID
+#### Delete Transaction by ID
 - **Endpoint:** `/api/transactions/:id`
 - **Method:** `DELETE`
-- **Headers:**
-  - `Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzI5NjYyMjQzLCJleHAiOjE3Mjk2NjU4NDN9.wHv9MCR1C-EALU42GQE6Tacj9rtZWxTldeFu4HPXr8M`
+- **Headers:** `Authorization: Bearer your_jwt_token_here`
 - **Response:**
     - **Status Code:** 200 OK
     - **Body:**
@@ -217,24 +204,15 @@
             "message": "Transaction deleted successfully"
         }
         ```
-- **Response (Not Found):**
-    - **Status Code:** 404 Not Found
-    - **Body:**
-        ```json
-        {
-            "error": "Transaction not found"
-        }
-        ```
 
 ---
 
-## Summary
+### Summary
 
-### Get Summary of Transactions
+#### Get Summary of Transactions
 - **Endpoint:** `/api/summary`
 - **Method:** `GET`
-- **Headers:**
-  - `Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzI5NjYyMjQzLCJleHAiOjE3Mjk2NjU4NDN9.wHv9MCR1C-EALU42GQE6Tacj9rtZWxTldeFu4HPXr8M`
+- **Headers:** `Authorization: Bearer your_jwt_token_here`
 - **Response:**
     - **Status Code:** 200 OK
     - **Body:**
@@ -248,20 +226,18 @@
 
 ---
 
-## Error Responses
-- **Status Code:** 401 Unauthorized
-- **Body:**
-    ```json
-    {
-        "error": "Unauthorized access"
-    }
-    ```
+## Postman Screenshots
+![User Registration](path/to/user_registration_screenshot.png)
+![User Login](path/to/user_login_screenshot.png)
+![Create Transaction](path/to/create_transaction_screenshot.png)
+![Get All Transactions](path/to/get_all_transactions_screenshot.png)
+![Get Transaction by ID](path/to/get_transaction_by_id_screenshot.png)
+![Update Transaction](path/to/update_transaction_screenshot.png)
+![Delete Transaction](path/to/delete_transaction_screenshot.png)
+![Get Summary](path/to/get_summary_screenshot.png)
 
-- **Status Code:** 500 Internal Server Error
-- **Body:**
-    ```json
-    {
-        "error": "Something went wrong"
-    }
-    ```
+---
+
+## License
+This project is licensed under the MIT License.
 

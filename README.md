@@ -1,41 +1,267 @@
-# Personal Expense Tracker
+# Personal Expense Tracker API Documentation
 
-## Objective
+## Base URL
+`http://localhost:3000`
 
-Develop a RESTful API for managing personal financial records. Users can record their income and expenses, retrieve past transactions, and get summaries by category or time period.
+---
 
-## Tools and Technologies
-
-- **Backend Framework**: Node.js with Express.js
-- **Database**: SQLite
-
-
-### Database Setup
-
-- **SQLite**: Create a database with tables:
-  - `transactions`: id, type (income or expense), category, amount, date, description
-  - `categories`: id, name, type (income or expense)
-
-### API Endpoints
-
-- `POST /api/transactions`: Adds a new transaction (income or expense).
-- `GET /api/transactions`: Retrieves all transactions.
-- `GET /api/transactions/:id`: Retrieves a transaction by ID.
-- `PUT /api/transactions/:id`: Updates a transaction by ID.
-- `DELETE /api/transactions/:id`: Deletes a transaction by ID.
-- `GET /api/summary`: Retrieves a summary of transactions, such as total income, total expenses, and balance. Optionally, this can be filtered by date range or category.
-
-
-## API Documentation
+## Authentication
 
 ### User Registration
+- **Endpoint:** `/api/users/register`
+- **Method:** `POST`
+- **Headers:**
+  - `Content-Type: application/json`
+- **Request Body:**
+    ```json
+    {
+        "username": "user123",
+        "password": "securePassword"
+    }
+    ```
+- **Response:**
+    - **Status Code:** 201 Created
+    - **Body:**
+        ```json
+        {
+            "id": 1,
+            "username": "user123"
+        }
+        ```
 
-- **URL**: `http://localhost:3000/api/users/register`
-- **Method**: `POST`
-- **Headers**: `Content-Type: application/json`
-- **Body**:
-  ```json
-  {
-    "username": "username",
-    "password": "password"
-  }
+### User Login
+- **Endpoint:** `/api/users/login`
+- **Method:** `POST`
+- **Headers:**
+  - `Content-Type: application/json`
+- **Request Body:**
+    ```json
+    {
+        "username": "user123",
+        "password": "securePassword"
+    }
+    ```
+- **Response:**
+    - **Status Code:** 200 OK
+    - **Body:**
+        ```json
+        {
+            "auth": true,
+            "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzI5NjYyMjQzLCJleHAiOjE3Mjk2NjU4NDN9.wHv9MCR1C-EALU42GQE6Tacj9rtZWxTldeFu4HPXr8M"
+        }
+        ```
+
+---
+
+## Categories
+
+### Add Category
+- **Endpoint:** `/api/categories`
+- **Method:** `POST`
+- **Headers:**
+  - `Content-Type: application/json`
+  - `Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzI5NjYyMjQzLCJleHAiOjE3Mjk2NjU4NDN9.wHv9MCR1C-EALU42GQE6Tacj9rtZWxTldeFu4HPXr8M`
+- **Request Body:**
+    ```json
+    {
+        "name": "Food",
+        "type": "expense"
+    }
+    ```
+- **Response:**
+    - **Status Code:** 201 Created
+    - **Body:**
+        ```json
+        {
+            "id": 1,
+            "name": "Food",
+            "type": "expense"
+        }
+        ```
+
+### Get All Categories
+- **Endpoint:** `/api/categories`
+- **Method:** `GET`
+- **Headers:**
+  - `Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzI5NjYyMjQzLCJleHAiOjE3Mjk2NjU4NDN9.wHv9MCR1C-EALU42GQE6Tacj9rtZWxTldeFu4HPXr8M`
+- **Response:**
+    - **Status Code:** 200 OK
+    - **Body:**
+        ```json
+        [
+            {
+                "id": 1,
+                "name": "Food",
+                "type": "expense"
+            }
+        ]
+        ```
+
+---
+
+## Transactions
+
+### Create Transaction
+- **Endpoint:** `/api/transactions`
+- **Method:** `POST`
+- **Headers:**
+  - `Content-Type: application/json`
+  - `Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzI5NjYyMjQzLCJleHAiOjE3Mjk2NjU4NDN9.wHv9MCR1C-EALU42GQE6Tacj9rtZWxTldeFu4HPXr8M`
+- **Request Body:**
+    ```json
+    {
+        "type": "expense",
+        "category": "Food",
+        "amount": 50,
+        "date": "2024-10-23",
+        "description": "Dinner"
+    }
+    ```
+- **Response:**
+    - **Status Code:** 201 Created
+    - **Body:**
+        ```json
+        {
+            "id": 1,
+            "type": "expense",
+            "category": "Food",
+            "amount": 50,
+            "date": "2024-10-23",
+            "description": "Dinner"
+        }
+        ```
+
+### Get All Transactions
+- **Endpoint:** `/api/transactions`
+- **Method:** `GET`
+- **Headers:**
+  - `Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzI5NjYyMjQzLCJleHAiOjE3Mjk2NjU4NDN9.wHv9MCR1C-EALU42GQE6Tacj9rtZWxTldeFu4HPXr8M`
+- **Response:**
+    - **Status Code:** 200 OK
+    - **Body:**
+        ```json
+        [
+            {
+                "id": 1,
+                "type": "expense",
+                "category": "Food",
+                "amount": 50,
+                "date": "2024-10-23",
+                "description": "Dinner"
+            }
+        ]
+        ```
+
+### Get Transaction by ID
+- **Endpoint:** `/api/transactions/:id`
+- **Method:** `GET`
+- **Headers:**
+  - `Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzI5NjYyMjQzLCJleHAiOjE3Mjk2NjU4NDN9.wHv9MCR1C-EALU42GQE6Tacj9rtZWxTldeFu4HPXr8M`
+- **Response (Success):**
+    - **Status Code:** 200 OK
+    - **Body:**
+        ```json
+        {
+            "id": 1,
+            "type": "expense",
+            "category": "Food",
+            "amount": 50,
+            "date": "2024-10-23",
+            "description": "Dinner"
+        }
+        ```
+- **Response (Not Found):**
+    - **Status Code:** 404 Not Found
+    - **Body:**
+        ```json
+        {
+            "error": "Transaction not found"
+        }
+        ```
+
+### Update Transaction by ID
+- **Endpoint:** `/api/transactions/:id`
+- **Method:** `PUT`
+- **Headers:**
+  - `Content-Type: application/json`
+  - `Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzI5NjYyMjQzLCJleHAiOjE3Mjk2NjU4NDN9.wHv9MCR1C-EALU42GQE6Tacj9rtZWxTldeFu4HPXr8M`
+- **Request Body:**
+    ```json
+    {
+        "type": "expense",
+        "category": "Food",
+        "amount": 60,
+        "date": "2024-10-23",
+        "description": "Dinner updated"
+    }
+    ```
+- **Response:**
+    - **Status Code:** 200 OK
+    - **Body:**
+        ```json
+        {
+            "message": "Transaction updated successfully"
+        }
+        ```
+
+### Delete Transaction by ID
+- **Endpoint:** `/api/transactions/:id`
+- **Method:** `DELETE`
+- **Headers:**
+  - `Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzI5NjYyMjQzLCJleHAiOjE3Mjk2NjU4NDN9.wHv9MCR1C-EALU42GQE6Tacj9rtZWxTldeFu4HPXr8M`
+- **Response:**
+    - **Status Code:** 200 OK
+    - **Body:**
+        ```json
+        {
+            "message": "Transaction deleted successfully"
+        }
+        ```
+- **Response (Not Found):**
+    - **Status Code:** 404 Not Found
+    - **Body:**
+        ```json
+        {
+            "error": "Transaction not found"
+        }
+        ```
+
+---
+
+## Summary
+
+### Get Summary of Transactions
+- **Endpoint:** `/api/summary`
+- **Method:** `GET`
+- **Headers:**
+  - `Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzI5NjYyMjQzLCJleHAiOjE3Mjk2NjU4NDN9.wHv9MCR1C-EALU42GQE6Tacj9rtZWxTldeFu4HPXr8M`
+- **Response:**
+    - **Status Code:** 200 OK
+    - **Body:**
+        ```json
+        {
+            "totalIncome": 0,
+            "totalExpense": 50,
+            "balance": -50
+        }
+        ```
+
+---
+
+## Error Responses
+- **Status Code:** 401 Unauthorized
+- **Body:**
+    ```json
+    {
+        "error": "Unauthorized access"
+    }
+    ```
+
+- **Status Code:** 500 Internal Server Error
+- **Body:**
+    ```json
+    {
+        "error": "Something went wrong"
+    }
+    ```
+

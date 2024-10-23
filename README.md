@@ -246,7 +246,7 @@
 ---
 
 ## Postman Screenshots
-![User Registration](path/to/user_registration_screenshot.png)
+![User Registration](User_registration.png)
 ![User Login](path/to/user_login_screenshot.png)
 ![Create Transaction](path/to/create_transaction_screenshot.png)
 ![Get All Transactions](path/to/get_all_transactions_screenshot.png)

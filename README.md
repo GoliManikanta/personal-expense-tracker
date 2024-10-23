@@ -247,11 +247,11 @@
 
 ## Postman Screenshots
 ![User Registration](User_registration.png)
-![User Login](path/to/user_login_screenshot.png)
-![Create Transaction](path/to/create_transaction_screenshot.png)
-![Get All Transactions](path/to/get_all_transactions_screenshot.png)
-![Get Transaction by ID](path/to/get_transaction_by_id_screenshot.png)
-![Update Transaction](path/to/update_transaction_screenshot.png)
-![Delete Transaction](path/to/delete_transaction_screenshot.png)
-![Get Summary](path/to/get_summary_screenshot.png)
+![User Login](user_login.png)
+![Create Transaction](post_transaction.png)
+![Get All Transactions](get_all_transactions.png)
+![Get Transaction by ID](get_by_id.png)
+![Update Transaction](update_by_id.png)
+![Delete Transaction](delete_by_id.png)
+![Get Summary](summary.png)
 

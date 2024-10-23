@@ -103,11 +103,11 @@
 - **Request Body:**
     ```json
     {
-        "type": "expense",
-        "category": "Food",
-        "amount": 50,
-        "date": "2024-10-23",
-        "description": "Dinner"
+      "type": "income",
+      "category": "salary",
+      "amount": 25000,
+      "date": "2024-10-10",
+      "description": "month salary"
     }
     ```
 - **Response:**
@@ -115,12 +115,12 @@
     - **Body:**
         ```json
         {
-            "id": 1,
-            "type": "expense",
-            "category": "Food",
-            "amount": 50,
-            "date": "2024-10-23",
-            "description": "Dinner"
+        "id": 2,
+        "type": "income",
+        "category": "salary",
+        "amount": 25000,
+        "date": "2024-10-10",
+        "description": "month salary"
         }
         ```
 - **Request Body:**
@@ -138,7 +138,7 @@
     - **Body:**
         ```json
         {
-            "id": 1,
+            "id": 3,
             "type": "expense",
             "category": "Food",
             "amount": 50,
@@ -150,7 +150,7 @@
 #### Get All Transactions
 - **Endpoint:** `/api/transactions`
 - **Method:** `GET`
-- **Headers:** `Authorization: Bearer your_jwt_token_here`
+- **Headers:** `Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzI5NjYyMjQzLCJleHAiOjE3Mjk2NjU4NDN9.wHv9MCR1C-EALU42GQE6Tacj9rtZWxTldeFu4HPXr8M`
 - **Response:**
     - **Status Code:** 200 OK
     - **Body:**
@@ -168,35 +168,36 @@
         ```
 
 #### Get Transaction by ID
-- **Endpoint:** `/api/transactions/:id`
+- **Endpoint:** `/api/transactions/3`
 - **Method:** `GET`
-- **Headers:** `Authorization: Bearer your_jwt_token_here`
+- **Headers:** `Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzI5NjYyMjQzLCJleHAiOjE3Mjk2NjU4NDN9.wHv9MCR1C-EALU42GQE6Tacj9rtZWxTldeFu4HPXr8M`
 - **Response (Success):**
     - **Status Code:** 200 OK
     - **Body:**
         ```json
         {
-            "id": 1,
+            "id": 3,
             "type": "expense",
             "category": "Food",
             "amount": 50,
             "date": "2024-10-23",
-            "description": "Dinner"
-        }
+            "description": "Dinner",
+            "user_id": 1
+          }
         ```
 
 #### Update Transaction by ID
-- **Endpoint:** `/api/transactions/:id`
+- **Endpoint:** `/api/transactions/2`
 - **Method:** `PUT`
 - **Headers:**
   - `Content-Type: application/json`
-  - `Authorization: Bearer your_jwt_token_here`
+  - `Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzI5NjYyMjQzLCJleHAiOjE3Mjk2NjU4NDN9.wHv9MCR1C-EALU42GQE6Tacj9rtZWxTldeFu4HPXr8M`
 - **Request Body:**
     ```json
     {
         "type": "expense",
         "category": "Food",
-        "amount": 60,
+        "amount": 600,
         "date": "2024-10-23",
         "description": "Dinner updated"
     }
@@ -211,9 +212,9 @@
         ```
 
 #### Delete Transaction by ID
-- **Endpoint:** `/api/transactions/:id`
+- **Endpoint:** `/api/transactions/3`
 - **Method:** `DELETE`
-- **Headers:** `Authorization: Bearer your_jwt_token_here`
+- **Headers:** `Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzI5NjYyMjQzLCJleHAiOjE3Mjk2NjU4NDN9.wHv9MCR1C-EALU42GQE6Tacj9rtZWxTldeFu4HPXr8M`
 - **Response:**
     - **Status Code:** 200 OK
     - **Body:**
@@ -230,15 +231,15 @@
 #### Get Summary of Transactions
 - **Endpoint:** `/api/summary`
 - **Method:** `GET`
-- **Headers:** `Authorization: Bearer your_jwt_token_here`
+- **Headers:** `Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzI5NjYyMjQzLCJleHAiOjE3Mjk2NjU4NDN9.wHv9MCR1C-EALU42GQE6Tacj9rtZWxTldeFu4HPXr8M`
 - **Response:**
     - **Status Code:** 200 OK
     - **Body:**
         ```json
         {
-            "totalIncome": 0,
-            "totalExpense": 50,
-            "balance": -50
+            "total_income": 25000,
+            "total_expense": 600,
+            "balance": 24400
         }
         ```
 
@@ -254,7 +255,3 @@
 ![Delete Transaction](path/to/delete_transaction_screenshot.png)
 ![Get Summary](path/to/get_summary_screenshot.png)
 
----
-
-## License
-This project is licensed under the MIT License.

@@ -27,10 +27,15 @@ This is a Personal Expense Tracker API built with Express.js and SQLite, allowin
    
 2. Install dependencies:
     ```bash
-    npm install
+    npm install express sqlite3 sequelize body-parser cors jsonwebtoken bcryptjs
     ```
 
-3. Create the SQLite database:
+3. Optional: Install development tools like Nodemon:
+    ```bash
+    npm install --save-dev nodemon
+    ```
+
+4. Create the SQLite database:
     ```bash
     npx sequelize-cli db:create
     npx sequelize-cli db:migrate
@@ -240,4 +245,3 @@ This is a Personal Expense Tracker API built with Express.js and SQLite, allowin
 
 ## License
 This project is licensed under the MIT License.
-

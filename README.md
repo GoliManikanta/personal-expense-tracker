@@ -1,10 +1,5 @@
 # Personal Expense Tracker
 
-## Overview
-This is a Personal Expense Tracker API built with Express.js and SQLite, allowing users to manage their transactions efficiently.
-
----
-
 ## Table of Contents
 - [Setup Instructions](#setup-instructions)
 - [API Documentation](#api-documentation)
@@ -15,8 +10,9 @@ This is a Personal Expense Tracker API built with Express.js and SQLite, allowin
 ## Setup Instructions
 
 ### Prerequisites
-- Node.js (v14 or higher)
-- SQLite (for the database)
+- Node.js
+- SQLite 
+- Express.js
 
 ### Installation
 1. Clone the repository:
@@ -33,12 +29,6 @@ This is a Personal Expense Tracker API built with Express.js and SQLite, allowin
 3. Optional: Install development tools like Nodemon:
     ```bash
     npm install --save-dev nodemon
-    ```
-
-4. Create the SQLite database:
-    ```bash
-    npx sequelize-cli db:create
-    npx sequelize-cli db:migrate
     ```
 
 ### Running the Application
@@ -65,8 +55,8 @@ This is a Personal Expense Tracker API built with Express.js and SQLite, allowin
 - **Request Body:**
     ```json
     {
-        "username": "user123",
-        "password": "securePassword"
+      "username": "Manikanta",
+      "password": "Manikanta@123"
     }
     ```
 - **Response:**
@@ -75,7 +65,7 @@ This is a Personal Expense Tracker API built with Express.js and SQLite, allowin
         ```json
         {
             "id": 1,
-            "username": "user123"
+            "username": "Manikanta"
         }
         ```
 
@@ -86,8 +76,8 @@ This is a Personal Expense Tracker API built with Express.js and SQLite, allowin
 - **Request Body:**
     ```json
     {
-        "username": "user123",
-        "password": "user@123"
+      "username": "Manikanta",
+      "password": "Manikanta@123"
     }
     ```
 - **Response:**
@@ -96,7 +86,7 @@ This is a Personal Expense Tracker API built with Express.js and SQLite, allowin
         ```json
         {
             "auth": true,
-            "token": "your_jwt_token_here"
+            "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzI5NjYyMjQzLCJleHAiOjE3Mjk2NjU4NDN9.wHv9MCR1C-EALU42GQE6Tacj9rtZWxTldeFu4HPXr8M"
         }
         ```
 
@@ -109,7 +99,30 @@ This is a Personal Expense Tracker API built with Express.js and SQLite, allowin
 - **Method:** `POST`
 - **Headers:** 
   - `Content-Type: application/json`
-  - `Authorization: Bearer your_jwt_token_here`
+  - `Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzI5NjYyMjQzLCJleHAiOjE3Mjk2NjU4NDN9.wHv9MCR1C-EALU42GQE6Tacj9rtZWxTldeFu4HPXr8M`
+- **Request Body:**
+    ```json
+    {
+        "type": "expense",
+        "category": "Food",
+        "amount": 50,
+        "date": "2024-10-23",
+        "description": "Dinner"
+    }
+    ```
+- **Response:**
+    - **Status Code:** 201 Created
+    - **Body:**
+        ```json
+        {
+            "id": 1,
+            "type": "expense",
+            "category": "Food",
+            "amount": 50,
+            "date": "2024-10-23",
+            "description": "Dinner"
+        }
+        ```
 - **Request Body:**
     ```json
     {
